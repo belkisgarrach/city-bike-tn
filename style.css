@@ -1,0 +1,654 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap');
+
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0px;
+  padding: 0px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* 🔹 Navbar */
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 5px solid #6f6f6f;
+  position: fixed;       /* يخلي navbar ديما ثابت */
+  top: 0;                /* يثبّت فوق */
+  left: 0;
+  width: 100%;           /* يغطي العرض الكل */
+  background: #fff;      /* خلفية بيضاء باش النص يبقى واضح */
+  z-index: 1000;         /* يخليه فوق بقية العناصر */
+  padding: 10px 0;
+}
+
+nav h1 {
+  color: #717171;
+  font-family: 'Playfair Display', serif;
+  font-size: 30px;
+}
+nav .onglets {
+  margin-top: 3px;
+  margin-left: 300px;
+}
+nav .onglets a {
+  text-decoration: none;
+  color: #000;
+  margin-right: 15px;
+  padding: 8px 0;
+  position: relative;
+  transition: color 0.1s ease;
+}
+nav .onglets a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0%;
+  height: 2px;
+  background-color: rgb(7, 167, 192); /* même couleur que ton thème */
+  transition: width 0.3s ease;
+}
+nav .onglets a:hover {
+  color: rgb(7, 167, 192);
+}
+nav .onglets a:hover::after {
+  width: 100%;
+}
+
+/* Quand le lien est actif (sélectionné) */
+nav .onglets a.active {
+  color: rgb(7, 167, 192);
+}
+nav .onglets a.active::after {
+  width: 100%;
+}
+/* 🔹 Animations */
+@keyframes slideFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+header h1, header h4, header button {
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+/* 🔹 Header */
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: url(images/background.jpg);
+  background-size: cover;
+  color: #fff;
+  padding: 40px;
+}
+header h1 {
+  animation: slideFadeIn 1.2s ease-out forwards;
+  font-family: 'Playfair Display', serif;
+  font-size: 50px;
+}
+header h4 {
+  animation: slideFadeIn 1.5s ease-out forwards;
+  animation-delay: 0.4s;
+  margin-top: -20px;
+  font-size: 20px;
+  text-align: center;
+  border-bottom: 1px solid #fff;
+}
+header button {
+  padding: 10px 20px;
+  background-color: #fff;
+  color:#000;
+  border:none;
+  margin-bottom: 30px;
+  outline:none;
+  font-size: 20px;
+  font-family: 'Playfair Display', serif;
+  cursor: pointer;
+  opacity: 0;
+  animation: slideFadeIn 1.5s ease-out forwards;
+  animation-delay: 0.8s;
+}
+section {
+  padding-top: 100px; /* نفس ارتفاع navbar */
+}   
+/* 🔹 Section produits (nouvelle version cards grid) */
+.products {
+  padding: 50px 5%;
+  background: #f8f9fa;
+  text-align: center;
+}
+.products h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #333;
+  font-family: 'Playfair Display', serif;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+}
+.product-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+.product-card h3 {
+  font-family: 'Poppins', sans-serif; 
+  font-weight: 700; /* 🔹 يخليها أسمك */
+  font-size: 1.4rem; /* 🔹 أكبر شوية من العادي */
+  color: #00BFD5; /* 🔹 اللون الأزرق متاع اللوغو */
+  text-transform: uppercase; /* 🔹 تخليها بأحرف كبيرة */
+  letter-spacing: 1px; /* 🔹 تباعد خفيف بين الحروف */
+  margin-bottom: 8px;
+  transition: transform 0.2s ease, color 0.3s ease;
+}
+
+/* 🎯 تأثير عند المرور بالفأرة */
+.product-card h3:hover {
+  color: #009fb6; /* 🔹 درجة أغمق من الأزرق */
+  transform: scale(1.05);
+}
+
+.logo-link {
+  text-decoration: none;
+  color: inherit;   /* نفس لون النص متاع h1 */
+}
+
+.logo-link:hover {
+  color: rgb(7, 167, 192);   /* لون عند hover (اختياري) */
+}
+.product-card img {
+ width: 100%;
+  height: 250px;         /* تولي نفس الطول لكل الصور */
+  object-fit: contain;   /* يخلي الصورة تبان كاملة من غير ما تتقص */
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+.product-card:hover img {
+  transform: scale(1.05);
+}
+.product-info {
+    flex: 1; /* يخلي النص ياخذ المساحة الفاضية */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  text-align: left;
+}
+.product-info h3 {
+  color: rgb(7, 167, 192);
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+.product-info p {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 15px;
+}
+.btn { 
+    width: fit-content;
+  display: inline-block;
+  padding: 12px 18px;
+  background: rgb(7, 167, 192);
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.2s ease;
+    font-size: 1rem;
+}
+.btn:hover {
+  background: rgb(7, 167, 192);
+  transform: scale(1.05);
+}
+
+/* 🔹 Footer */
+footer {
+  margin-top: 40px;
+  border-top: 5px solid #6f6f6f;
+  background-color: #000;
+  color: #fff;
+  padding: 40px 100px;
+  font-family: Arial, sans-serif;
+}
+footer .logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px;
+  color:rgb(7, 167, 192);
+  margin-bottom: 10px;
+}
+footer .description {
+  max-width: 250px;
+  color: #d1d1d1;
+  font-size: 14px;
+  line-height: 1.5;
+}
+footer .footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+footer .footer-column {
+  min-width: 200px;
+  margin-bottom: 20px;
+}
+.footer-icon {
+  margin-right: 8px;
+  color: rgb(7, 167, 192);
+}
+footer .footer-column h3 {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #fff;
+}
+footer .footer-column ul {
+  list-style: none;
+  padding: 0;
+}
+footer .footer-column ul li {
+  margin-bottom: 8px;
+}
+footer .footer-column ul li a {
+  text-decoration: none;
+  color: #d1d1d1;
+  font-size: 14px;
+}
+footer .footer-column ul li a:hover {
+  color:#717171;
+}
+footer .footer-column p {
+  font-size: 14px;
+  color: #d1d1d1;
+  margin-bottom: 5px;
+}
+.social-icons i {
+  margin-right: 8px;
+}
+footer .social-icons a {
+  display: inline-block;
+  margin-bottom: 6px; 
+  margin-right: 20px;
+  color: #d1d1d1;
+  font-size: 22px;
+  text-decoration: none;
+}
+footer .social-icons a:hover {
+  color:rgb(7, 167, 192);
+}
+footer .copyright {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 13px;
+  color: #b5b5b5;
+  border-top: 1px solid #444;
+  padding-top: 15px;
+}
+
+/* 🔹 Header fullscreen */
+#main-header {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: url("images/background.jpg") no-repeat center center/cover;
+  color: white;
+  text-align: center;
+  padding-top: 120px;
+}
+.price {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 15px;
+}
+.btn i {
+  margin-right: 6px;
+}
+/* Page Commande */
+.commande {
+  padding: 40px 5%;
+  max-width: 800px;
+  margin: auto;
+}
+.commande h2, .commande h3 {
+  text-align: center;
+  color: #333;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 20px;
+}
+.commande-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+.commande-form input, 
+.commande-form textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: inherit;
+}
+.commande-form button {
+  align-self: flex-start;
+}
+.caracteristiques {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+.caracteristiques th, 
+.caracteristiques td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+.caracteristiques th {
+  background: #f2f2f2;
+}
+form.commande-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+form.commande-form label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+form.commande-form input,
+form.commande-form textarea {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: inherit;
+  width: 100%;
+  font-size: 1rem;
+}
+
+form.commande-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 15px;
+  background:rgb(7, 167, 192);
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+
+.btn-return {
+  background: #333;
+}
+
+.btn-return:hover {
+  background: #555;
+}
+/* 🔹 Contact Section */
+.contact {
+  padding: 60px 5%;
+  background: #f8f9fa;
+}
+
+.contact h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 40px;
+  font-family: 'Playfair Display', serif;
+  color: #333;
+}
+#produits, #contact {
+  padding-top: 100px;
+}
+
+/* Container: form + infos */
+.contact-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.contact-form,
+.contact-info {
+  flex: 1 1 450px;
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+}
+
+/* Titles */
+.contact-form h3,
+.contact-info h3 {
+  margin-bottom: 20px;
+  color:rgb(7, 167, 192); /* accent color kif produits */
+  font-family: 'Playfair Display', serif;
+}
+
+/* Form style */
+.contact-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact-form label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.contact-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.contact-form button {
+  align-self: flex-start;
+}
+
+/* Info bloc */
+.contact-info p {
+  margin: 12px 0;
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.6;
+  display: flex;            /* يخلي الأيقونة + النص في نفس السطر */
+  align-items: center;      /* يوسّطهم عمودياً */
+}
+
+.contact-info i {
+  margin-right: 10px;       /* espace بين الأيقونة والنص */
+  font-size: 18px;
+  color:rgb(7, 167, 192);
+}
+.contact-info p:hover {
+  color: rgb(7, 167, 192);
+  cursor: default;
+}
+.contact-subtitle {
+  text-align: center;
+  font-size: 1rem;
+  color: #555;
+  max-width: 700px;
+  margin: -20px auto 30px auto;
+  line-height: 1.5;
+  font-style: italic; /* يعطيها touche أنيقة */
+}
+/* 🎨 Section Couleurs sous l'image */
+.color-section {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.color-label {
+  display: block;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.color-selector {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.color-option {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease, border 0.2s ease;
+}
+
+.color-option:hover {
+  transform: scale(1.2);
+  border: 2px solid #000;
+}
+
+/* L'image du produit avec overlay pour teinter */
+.product-image-container {
+  position: relative;
+  display: inline-block;
+}
+
+#product-image {
+  width: 100%;
+  border-radius: 10px;
+  transition: filter 0.4s ease, background-color 0.4s ease;
+  mix-blend-mode: multiply; /* permet la fusion couleur */
+}
+
+#color-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  transition: background-color 0.4s ease;
+  mix-blend-mode: color;
+  pointer-events: none;
+}
+.color-options {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.color-dot {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.color-dot:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 4px rgba(0,0,0,0.2);
+}
+
+.color-dot.active {
+  border: 3px solid black;
+  transform: scale(1.2);
+}
+.color-section {
+  display: flex;
+  flex-direction: column; /* 🟢 بدلنا direction عمودي */
+  align-items: flex-start; /* باش يبدى label وdots على اليسار */
+  gap: 10px; /* مسافة صغيرة بين label وles cercles */
+}
+
+.logo-img {
+  height: 60px; /* 🔹 تنجم تبدلها حسب حجم اللوغو */
+  width: auto;
+  display: block;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.logo-img:hover {
+  transform: scale(1.05);
+}
+
+@media screen and (max-width:500px) {
+  .contact-info, .contact-form {
+    padding: 20px;
+  }
+  .contact-info p {
+    font-size: 0.95rem;
+  }
+}
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .contact-container {
+    flex-direction: column;
+  }
+}
+
+/* 🔹 Responsive */
+@media screen and (max-width:680px) {
+  nav .onglets {
+    margin-left: 0px;
+    margin-bottom: 20px;
+  }
+  footer {
+    padding: 30px;
+  }
+}
+@media (max-width: 600px) {
+  .btn {
+    width: 100%;
+    text-align: center;
+  }}

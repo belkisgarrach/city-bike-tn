@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Commande</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f8f9fa;
+    }
+
+    .commande-container {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 1000px;
+      margin: 40px auto;
+      gap: 30px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    }
+
+    .commande-image {
+      flex: 1 1 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .commande-image img {
+      width: 100%;
+      height: 320px; /* 🔹 même taille fixe */
+      object-fit: contain; /* 🔹 pour garder les proportions */
+      border-radius: 10px;
+    }
+
+    .commande-details {
+      flex: 1 1 400px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .commande-details h2 {
+      font-family: 'Playfair Display', serif;
+      margin: 0;
+      color: #333;
+    }
+
+    .prix {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    .color-section {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    .color-section label {
+      font-weight: bold;
+      color: #333;
+      font-size: 1rem;
+    }
+
+    .color-options {
+      display: flex;
+      gap: 10px;
+    }
+
+    .color-dot {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: transform 0.2s, border 0.2s;
+    }
+
+    .color-dot:hover {
+      transform: scale(1.1);
+    }
+
+    .color-dot.active {
+      border: 2px solid #333;
+      transform: scale(1.1);
+    }
+
+    table.caracteristiques {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    table.caracteristiques th, table.caracteristiques td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    table.caracteristiques th {
+      background: #f2f2f2;
+    }
+
+    form.commande-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    form.commande-form label {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    form.commande-form input,
+    form.commande-form textarea {
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-family: inherit;
+      width: 100%;
+      font-size: 1rem;
+    }
+
+    form.commande-form textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 15px;
+      background: rgb(26, 205, 199);
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+    }
+
+    .btn-return {
+      background: #333;
+    }
+
+    .btn-return:hover {
+      background: #555;
+    }
+
+    @media screen and (max-width: 900px) {
+      .commande-container {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="commande-container">
+    <div class="commande-image">
+      <img id="product-image" src="images/default.png" alt="Produit">
+
+      <!-- 🎨 Palette couleurs avec label -->
+      <div class="color-section">
+        <label>Veuillez choisir une couleur</label>
+        <div class="color-options">
+          <span class="color-dot active" data-color="gray" style="background:#888"></span>
+          <span class="color-dot" data-color="white" style="background:#eee; border:1px solid #ccc"></span>
+          <span class="color-dot" data-color="blue" style="background:#7ea7cc"></span>
+          <span class="color-dot" data-color="green" style="background:#a0b58b"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="commande-details">
+        
+      <h2 id="product-name">Nom Produit</h2>
+       <label for="quantite">Quantité :</label>
+      <input type="number" id="quantite" min="1" value="1" style="width:100px; padding:8px; border-radius:5px; border:1px solid #ccc;">
+      <div class="prix"><span id="product-price">0</span> DT</div>
+
+      <!-- 🔢 Quantité -->
+     
+
+      <table class="caracteristiques" id="product-details">
+        <tr><th>Moteur</th><td></td></tr>
+        <tr><th>Max Speed</th><td></td></tr>
+        <tr><th>Batterie</th><td></td></tr>
+        <tr><th>Autonomie</th><td></td></tr>
+        <tr><th>Temps de chargement</th><td></td></tr>
+        <tr><th>Double Batteries</th><td></td></tr>
+        <tr><th>Garantie moteur & batterie</th><td>2 ans</td></tr>
+      </table>
+
+      <p style="font-size:1rem; color:#555; margin-top:10px;">
+        Merci de remplir vos informations ci-dessous pour finaliser votre commande.
+      </p>
+
+      <form id="orderForm" class="commande-form">
+        <div>
+          <label for="nom">Nom complet</label>
+          <input type="text" id="nom" name="nom" placeholder="Entrez votre nom complet" required>
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="exemple@domaine.com" required>
+        </div>
+        <div>
+          <label for="telephone">Téléphone</label>
+          <input type="tel" id="telephone" name="telephone" placeholder="+216 XX XXX XXX" required>
+        </div>
+        <div>
+          <label for="adresse">Adresse complète</label>
+          <textarea id="adresse" name="adresse" placeholder="Rue, Ville, Code Postal" required></textarea>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap: wrap;">
+          <button type="submit" class="btn">
+            <i class="fa fa-paper-plane"></i> Envoyer la commande
+          </button>
+          <a href="index.html#produits" class="btn btn-return">
+            <i class="fa fa-arrow-left"></i> Retour aux produits
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+<script>
+  const produits = {
+    "50cc2000w": { nom: "Scooter 50cc - 2000W", moteur: "2000 W", maxSpeed: "45 km/h", batterie: "Lithium-Ion 60v26AH", autonomie: "45 km par batterie", tempsChargement: "6 Heures à 100%", doubleBatteries: "Oui", prix: 5500, image: "images/image 5.png" },
+    "50cc3000w": { nom: "Scooter 50cc - 3000W", moteur: "3000 W", maxSpeed: "50 km/h", batterie: "Lithium-Ion 60v23,4AH", autonomie: "45 km", tempsChargement: "6 Heures à 100%", doubleBatteries: "Oui", prix: 6500, image: "images/image 1.png" },
+    "125cc4000w": { nom: "Scooter 125cc - 4000w", moteur: "4000 W", maxSpeed: "75 km/h", batterie: "Lithium-Ion 72v40AH", autonomie: "50 à 70 km", tempsChargement: "6 Heures à 100%", doubleBatteries: "Oui", prix: 7500, image: "images/image 3.png" },
+    "125cc5000w": { nom: "Scooter 125cc - 5000w", moteur: "5000 W", maxSpeed: "105 km/h", batterie: "Lithium-Ion 72v52AH", autonomie: "50 à 70 km", tempsChargement: "6 Heures à 100%", doubleBatteries: "Oui", prix: 7800, image: "images/image 2.png" }
+  };
+
+  const params = new URLSearchParams(window.location.search);
+  const produitKey = params.get("produit");
+  const produit = produits[produitKey];
+
+  const productName = document.getElementById("product-name");
+  const productPrice = document.getElementById("product-price");
+  const productImage = document.getElementById("product-image");
+
+  if (produit) {
+    productName.innerText = produit.nom;
+    productPrice.innerText = produit.prix.toLocaleString("fr-FR");
+    productImage.src = produit.image;
+
+    const table = document.getElementById("product-details");
+    table.rows[0].cells[1].innerText = produit.moteur;
+    table.rows[1].cells[1].innerText = produit.maxSpeed;
+    table.rows[2].cells[1].innerText = produit.batterie;
+    table.rows[3].cells[1].innerText = produit.autonomie;
+    table.rows[4].cells[1].innerText = produit.tempsChargement;
+    table.rows[5].cells[1].innerText = produit.doubleBatteries;
+  }
+
+  // 🎨 Palette couleurs
+  const colorOptions = document.querySelectorAll(".color-dot");
+  let currentColor = "gray";
+  colorOptions.forEach(dot => {
+    dot.addEventListener("click", () => {
+      colorOptions.forEach(d => d.classList.remove("active"));
+      dot.classList.add("active");
+      currentColor = dot.dataset.color;
+
+      const colorImages = {
+        gray: "images/image 5.png",
+        white: "images/image 1.png",
+        blue: "images/image 3.png",
+        green: "images/image 2.png"
+      };
+      productImage.src = colorImages[currentColor];
+    });
+  });
+
+  // 🔢 Quantité dynamique
+  const quantiteInput = document.getElementById("quantite");
+  quantiteInput.addEventListener("input", () => {
+    const qte = parseInt(quantiteInput.value) || 1;
+    const total = produit.prix * qte;
+    productPrice.textContent = total.toLocaleString("fr-FR");
+  });
+
+  // 🟢 Formulaire WhatsApp amélioré
+  document.getElementById("orderForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const data = new FormData(this);
+    const qte = parseInt(quantiteInput.value) || 1;
+    const total = produit.prix * qte;
+
+    const message = `🛵 *Nouvelle commande* :
+%0A• Produit : ${produit.nom}
+%0A• Couleur : ${currentColor}
+%0A• Quantité : ${qte}
+%0A• Prix total : ${total.toLocaleString('fr-FR')} DT
+%0A—————————————
+%0A👤 *Informations client :*
+%0A• Nom : ${data.get("nom")}
+%0A• Email : ${data.get("email")}
+%0A• Téléphone : ${data.get("telephone")}
+%0A• Adresse : ${data.get("adresse")}
+%0A—————————————
+%0A📦 Merci pour votre commande !`;
+
+    const whatsappNumber = "21629710723"; // ← رقمك هنا
+    window.open(`https://wa.me/${whatsappNumber}?text=${message}`, "_blank");
+  });
+</script>
+
+</body>
+</html>
+    
